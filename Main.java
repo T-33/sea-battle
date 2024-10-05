@@ -13,6 +13,25 @@ class Field {
     public void placeShip() {
         this.hasShip = true;
     }
+    public String getStatusSign() {
+        String sign = "";
+
+        if(this.isHit && this.hasShip) {
+            sign = "--";
+        } else if(this.isHit) {
+
+            sign = "**";
+
+        } else if(this.hasShip) {
+
+            sign = "XX";
+
+        } else {
+            sign = "[]";
+        }
+
+        return sign;
+    }
 }
 public class Main
 {
@@ -39,16 +58,47 @@ public class Main
 
         }
 
-        //myIntMatrix[4][4].hit();
+        // for (int i = 0; i < rowsNumber; i++) {
+
+        //     for (int j = 0; j < columnsNumber; j++) {
+
+
+        //         if(myIntMatrix[i][j].isHit) {
+
+        //             System.out.print("$x$ ");
+
+        //         } else   System.out.print(coordinateLetters[i] + "x" + (j + 1) + " ");
+                
+        //     }
+        //     System.out.println("\n");
+        // }
+
+        int min = 0;
+		int max = 9;
+
+
+        for(int i = 0; i < 20; i += 1) {
+
+                while(true) {
+
+                    int xRand = min + (int)(Math.random() * ((max - min) + 1));
+                    int yRand = min + (int)(Math.random() * ((max - min) + 1));
+
+                    if(!myIntMatrix[xRand][yRand].hasShip) {
+
+                        myIntMatrix[xRand][yRand].placeShip();
+                        break;
+                    }
+                }
+		}
 
         for (int i = 0; i < rowsNumber; i++) {
 
             for (int j = 0; j < columnsNumber; j++) {
 
+                if(myIntMatrix[i][j].hasShip) {
 
-                if(myIntMatrix[i][j].isHit) {
-
-                    System.out.print("$x$ ");
+                    System.out.print("ship ");
 
                 } else   System.out.print(coordinateLetters[i] + "x" + (j + 1) + " ");
                 
@@ -57,6 +107,7 @@ public class Main
         }
 
         while(true) {
+
             int x = scanner.nextInt();
             int y = scanner.nextInt();
 
@@ -65,13 +116,8 @@ public class Main
             for (int i = 0; i < rowsNumber; i++) {
 
                 for (int j = 0; j < columnsNumber; j++) {
-    
-    
-                    if(myIntMatrix[i][j].isHit) {
-    
-                        System.out.print("XXX ");
-    
-                    } else   System.out.print(coordinateLetters[i] + "x" + (j + 1) + " ");
+
+                    System.out.print(myIntMatrix[i][j].getStatusSign() + " ");
                     
                 }
                 System.out.println("\n");
