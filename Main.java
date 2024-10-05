@@ -1,69 +1,59 @@
 
 import java.util.Scanner;
 
+
+class Field {
+
+    public boolean isHit = false;
+    public boolean hasShip = false;
+
+    public void hit() {
+        this.isHit = true;
+    }
+    public void placeShip() {
+        this.hasShip = true;
+    }
+}
 public class Main
 {
 	public static void main(String[] args) {
+
 		Scanner scanner = new Scanner(System.in);
+
         int rowsNumber = scanner.nextInt();
         int columnsNumber = scanner.nextInt();
         
         String emptyFieldSign = "\u26F6 ";
 
-        String[][] myIntMatrix = new String[rowsNumber + 1] [columnsNumber + 1];
+        Field[][] myIntMatrix = new Field[rowsNumber] [columnsNumber];
 
-
-// Read values into the Matrix using a loop
+        String[] coordinateLetters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
 
         for (int i = 0; i < rowsNumber; i++) {
 
             for (int j = 0; j < columnsNumber; j++) {
 
-                //myIntMatrix[i][j] = scanner.nextInt();
+                myIntMatrix[i][j] = new Field();
 
             }
 
         }
 
-
-// Process the Matrix as needed
+        myIntMatrix[4][4].hit();
 
         for (int i = 0; i < rowsNumber; i++) {
 
             for (int j = 0; j < columnsNumber; j++) {
-                
-                if(j == 0) { 
-                    
-                    myIntMatrix[i][j] = " " + (j + 1) + " ";
-                    
-                } else if(i == 0) { 
-                    
-                    myIntMatrix[i][j] = " " + (i + 1) + " ";
-                    
-                } else myIntMatrix[i][j] = "| |";
-                
-                
 
-                
 
+                if(myIntMatrix[i][j].isHit) {
+
+                    System.out.print("$x$ ");
+
+                } else   System.out.print(coordinateLetters[i] + "x" + (j + 1) + " ");
+                
             }
-            
-
-        }
-
-
-// Display the Matrix
-
-        for (int i = 0; i < rowsNumber; i++) {
-
-
-            for (int j = 0; j < columnsNumber; j++) {
-                System.out.print(myIntMatrix[i][j] + " ");
-
-            }
-            // System.out.println("\n");
-            System.out.println();
-
+            System.out.println("\n");
         }
 	}
 }
