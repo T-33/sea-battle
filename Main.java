@@ -39,7 +39,7 @@ public class Main
 
         }
 
-        myIntMatrix[4][4].hit();
+        //myIntMatrix[4][4].hit();
 
         for (int i = 0; i < rowsNumber; i++) {
 
@@ -54,6 +54,29 @@ public class Main
                 
             }
             System.out.println("\n");
+        }
+
+        while(true) {
+            int x = scanner.nextInt();
+            int y = scanner.nextInt();
+
+            myIntMatrix[x - 1][y - 1].hit();
+
+            for (int i = 0; i < rowsNumber; i++) {
+
+                for (int j = 0; j < columnsNumber; j++) {
+    
+    
+                    if(myIntMatrix[i][j].isHit) {
+    
+                        System.out.print("XXX ");
+    
+                    } else   System.out.print(coordinateLetters[i] + "x" + (j + 1) + " ");
+                    
+                }
+                System.out.println("\n");
+            }
+
         }
 	}
 }
