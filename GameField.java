@@ -16,13 +16,11 @@
 
 // initialising each field;
         for (int i = 0; i < rowsNumber; i++) {
-
             for (int j = 0; j < columnsNumber; j++) {
 
                 this.gameField[i][j] = new Cell();
 
             }
-
         }
 
     }
@@ -48,13 +46,6 @@
 
         int xRand = min + (int)(Math.random() * ((max - min) + 1));
         int yRand = min + (int)(Math.random() * ((max - min) + 1));
-
-        // if(xRand == 0 || xRand == 9) {
-        //     isFixedX = false;
-        // }
-        // if(yRand == 0 || yRand == 9) {
-        //     isFixedX = true;
-        // }
 
         for(int i = 0; i < shipLength; i += 1) {
 
@@ -83,7 +74,9 @@
 
             for (int j = 0; j < columnsNumber; j++) {
         
-                 System.out.print(this.gameField[i][j].getStatusSign() + " ");
+                 System.out.print(this.gameField[i][j].getStatusSign() + "");
+
+                 System.out.print(this.isCellAvailable(i, j) ? 1 : 0 + " ");
                             
             }
 
@@ -91,12 +84,35 @@
         }
     }
 
-    public boolean isCellAvailable(int x, int y) {
-        boolean isXNeighboursAvailable = x > 0 && x < 9 && !(this.gameField[x - 1][y].hasShip && this.gameField[x + 1][y].hasShip);
-        boolean isYNeighboursAvailable = y > 0 && y < 9 && !(this.gameField[x][y - 1].hasShip && this.gameField[x][y + 1].hasShip);
+    private boolean isCellAvailable(int x, int y) {
+        boolean hasShip = this.gameField[x][y].hasShip;
 
-        return isXNeighboursAvailable && isYNeighboursAvailable;
+        boolean isXNeighboursAvailable = !((x > 0 && x < 9) && (this.gameField[x - 1][y].hasShip || this.gameField[x + 1][y].hasShip) || hasShip);
+        boolean isYNeighboursAvailable = !((y > 0 && y < 9) && (this.gameField[x][y - 1].hasShip || this.gameField[x][y + 1].hasShip) || hasShip);
 
-    }
-    
+        
+
+        if(x == 0 && y == 0) {
+            return !(this.gameField[x][y + 1].hasShip || this.gameField[x + 1][y].hasShip || hasShip);
+        } else if (x == 0 && y == 9) {
+            return !(this.gameField[x][y - 1].hasShip || this.gameField[x + 1][y].hasShip || hasShip);
+        } else if (x == 9 && y == 0) {
+            return !(this.gameField[x][y + 1].hasShip || this.gameField[x - 1][y].hasShip || hasShip);
+        } else if (x == 9 && y == 9) {
+            return !(this.gameField[x][y - 1].hasShip || this.gameField[x - 1][y].hasShip || hasShip);
+        }
+
+        else if(x == 0) {
+            return !(this.gameField[x][y - 1].hasShip || this.gameField[x][y + 1].hasShip || this.gameField[x + 1][y].hasShip || hasShip);
+        } else if (x == 9) {
+            return !(this.gameField[x][y - 1].hasShip || this.gameField[x][y + 1].hasShip || this.gameField[x - 1][y].hasShip || hasShip);
+        } else if (y == 0) {
+            return !(this.gameField[x - 1][y].hasShip || this.gameField[x + 1][y].hasShip || this.gameField[x][y + 1].hasShip || hasShip);
+        } else if (y == 9) {
+            return !(this.gameField[x - 1][y].hasShip || this.gameField[x + 1][y].hasShip || this.gameField[x][y - 1].hasShip || hasShip);
+        } else return isXNeighboursAvailable && isYNeighboursAvailable;
+
+        
+
+    }    
 }
