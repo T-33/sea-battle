@@ -19,6 +19,17 @@
                 gameField[i][j] = new Cell();
             }
         }
+
+        placeShip(4);
+        placeShip(3);
+        placeShip(3);
+        placeShip(2);
+        placeShip(2);
+        placeShip(2);
+        placeShip(1);
+        placeShip(1);
+        placeShip(1);
+        placeShip(1);
     }
 
     public int getRowsNumber() {
@@ -76,14 +87,42 @@
     }
 
     public void printField() {
+        for (int i = 0; i < 11; i++) {
+            if(i == 0) {
+                System.out.print("  ");
+                continue;
+            }
+            System.out.print("  " + i);
+        }
+        System.out.print("\n");
+
+        for (int i = 0; i < 11; i++) {
+            if(i == 0) {
+                System.out.print("  ");
+                continue;
+            }
+            System.out.print(" --");
+        }
+        System.out.print("\n");
+
         for (int i = 0; i < rowsNumber; i++) {
 
             for (int j = 0; j < columnsNumber; j++) {
+                System.out.print((j == 0 ? coordinateLetters[i] + "|" : "") + " " + gameField[i][j].getStatusSign());
 
-                System.out.print(gameField[i][j].getStatusSign() + "");
+                if(j == 9) System.out.print("|");
             }
-
+        
             System.out.println("\n");
+        }
+
+
+        for (int i = 0; i < 11; i++) {
+            if(i == 0) {
+                System.out.print("  ");
+                continue;
+            }
+            System.out.print(" --");
         }
     }
 
