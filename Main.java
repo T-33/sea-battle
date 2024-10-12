@@ -10,26 +10,12 @@ public class Main
 		Scanner sc = new Scanner(System.in);
 
         SeaBattle gameField = new SeaBattle(10, 10);
-
-        gameField.placeShip(4);
-        gameField.placeShip(3);
-        gameField.placeShip(3);
-        gameField.placeShip(2);
-        gameField.placeShip(2);
-        gameField.placeShip(2);
-        gameField.placeShip(1);
-        gameField.placeShip(1);
-        gameField.placeShip(1);
-        gameField.placeShip(1);
-
-
-
-
+        gameField.init();
 
         gameField.printField();
-        
-
         while(true) {
+            System.out.print("\n");
+            System.out.println("Please enter which field you want to hit (in following format: either  A 1 or 1 1):");
             int userX = sc.nextInt();
             int userY = sc.nextInt();
 
@@ -37,5 +23,10 @@ public class Main
 
             gameField.printField();
         }
+     }
+
+     public void cleanScreen() {
+        System.out.print("\033[H\033[2J");  
+        System.out.flush();  
      }
 }
