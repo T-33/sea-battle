@@ -19,7 +19,9 @@
                 gameField[i][j] = new Cell();
             }
         }
+    }
 
+    public void init() {
         placeShip(4);
         placeShip(3);
         placeShip(3);
