@@ -164,8 +164,8 @@
             boolean isYNeighboursAvailable = !((y > 0 && y < 9)
             && (gameField[x][y - 1].hasShip || gameField[x][y + 1].hasShip) || hasShip );
 
-            return isXNeighboursAvailable && isYNeighboursAvailable && !(gameField[x - 1][y - 1].hasShip && gameField[x - 1][y + 1].hasShip 
-                    && gameField[x + 1][y - 1].hasShip && gameField[x + 1][y + 1].hasShip); // return availability for inner cells
+            return isXNeighboursAvailable && isYNeighboursAvailable && (!gameField[x - 1][y - 1].hasShip && !gameField[x - 1][y + 1].hasShip 
+                    && !gameField[x + 1][y - 1].hasShip && !gameField[x + 1][y + 1].hasShip); // return availability for inner cells
         }
     }
 }
