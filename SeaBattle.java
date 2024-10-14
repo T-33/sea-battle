@@ -43,6 +43,11 @@
     }
 
     public void hitCell(int x, int y) {
+
+        if(x < 0 ||  x > 9 || y < 0 || y > 9) {
+            System.out.println("Cell you have entered is beyond game field. Please try again.");
+            return;
+        }
         gameField[x][y].hit();
     }
     
