@@ -2,27 +2,32 @@
 
     public boolean isHit = false;
     public boolean hasShip = false;
+    public boolean isSunken = false;
 
     public void hit() {
-        this.isHit = true;
+        isHit = true;
     }
     public void placeShip() {
-        this.hasShip = true;
+        hasShip = true;
     }
     public String getStatusSign() {
         String sign = "";
 
-        if(this.isHit && this.hasShip) {
+        if(isHit && hasShip) {
 
             sign = "--";
             
-        } else if(this.isHit) {
+        } else if(isHit) {
 
             sign = "**";
 
-        } else if(this.hasShip) {
+        } else if(hasShip) {
 
             sign = "XX";
+
+        } else if(isSunken) {
+
+            sign = "{x}";
 
         } else {
             sign = "[]";
