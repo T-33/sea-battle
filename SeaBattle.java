@@ -96,6 +96,16 @@
 
     }
 
+    private void cleanField() {
+
+        for (int i = 0; i <= 9; i++) {
+            for (int j = 0; j <= 9; j++) {
+                gameField[i][j].cleanCell();
+            }
+        }
+
+    }   
+
     public void printField() {
         for (int i = 0; i < 11; i++) {
             if(i == 0) {
