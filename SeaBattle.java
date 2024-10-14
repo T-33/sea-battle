@@ -96,6 +96,39 @@
 
     }
 
+    private void checkSunken(int shipSize) {
+
+        boolean isHorizontal = (1 + (int) (Math.random() * ((2 - 1) + 1))) == 1;
+
+        while (true) {
+            for (int i = 0; i <= 9; i++) {
+                outerloop: for (int j = 0; j <= 9; j++) {
+                    if (isHorizontal) {
+                        for (int k = 0; k < shipSize; k++) {
+                            if ((j + k) > 9 || !gameField[i][j + k].hasShip){
+                                continue outerloop;
+                            }
+                        }
+                        for (int k = 0; k < shipSize; k++) {
+                            gameField[i][j + k].sunk();
+                        }
+                        return;
+                    } else {
+                        for (int k = 0; k < shipSize; k++) {
+                            if ((i + k) > 9 || !gameField[i + k][j].hasShip)
+                                continue outerloop;
+                        }
+                        for (int k = 0; k < shipSize; k++) {
+                            gameField[i + k][j].sunk();
+                        }
+                        return;
+                    }
+                }
+            }
+            isHorizontal = isHorizontal ? false : true;
+        }
+    }
+
     private void cleanField() {
 
         for (int i = 0; i <= 9; i++) {
@@ -103,7 +136,6 @@
                 gameField[i][j].cleanCell();
             }
         }
-
     }   
 
     public void printField() {
