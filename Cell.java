@@ -10,6 +10,11 @@
     public void placeShip() {
         hasShip = true;
     }
+    public void cleanCell() {
+        hasShip = false;
+        isHit = false;
+        isSunken = false;
+    }
     public String getStatusSign() {
         String sign = "";
 
