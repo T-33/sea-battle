@@ -5,6 +5,8 @@
 
     private Cell[][] gameField;
 
+    private Player[] scoreBoard;
+
     private static final String[] coordinateLetters = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" };
 
     public SeaBattle(int rows, int columns) {
