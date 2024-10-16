@@ -9,7 +9,7 @@ public class Main
 
 		Scanner sc = new Scanner(System.in);
 
-        //TODO include co==functionality in SeaBattle class completely
+        //TODO add  asking which cell to hit into init()
 
         SeaBattle gameField = new SeaBattle(10, 10);
 

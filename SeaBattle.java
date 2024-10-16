@@ -7,7 +7,15 @@
 
     private Player[] scoreBoard;
 
-    private static final String[] coordinateLetters = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" };
+    private static final String[] coordinateLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
+    public SeaBattle() {
+        this(10);
+    }
+
+    public SeaBattle(int sideSize) {
+        this(sideSize, sideSize);
+    }
 
     public SeaBattle(int rows, int columns) {
         this.rowsNumber = rows;
@@ -22,6 +30,8 @@
             }
         }
     }
+
+
 
     public void init(int[] shipsSizes) {
         cleanField();
@@ -41,7 +51,7 @@
 
     public void hitCell(int i, int j) {
 
-        if(i < 0 ||  i > 9 || j < 0 || j > 9) {
+        if(i < 0 ||  i > rowsNumber || j < 0 || j > columnsNumber) {
             System.out.println("Incorrect input, please try again");
             return;
         }
@@ -83,7 +93,7 @@
             }
         }
 
-        if(rowInt < 0 || rowInt > 9 || colInt < 0 || colInt > 9) {
+        if(rowInt < 0 || rowInt > rowsNumber || colInt < 0 || colInt > columnsNumber) {
 
             System.out.println("Incorrect input, please try again");
 
@@ -121,11 +131,11 @@
         int j = min + (int) (Math.random() * ((max - min) + 1));
 
         while (true) {
-            for (; i <= 9; i++) {
-                outerloop: for (; j <= 9; j++) {
+            for (; i <= rowsNumber; i++) {
+                outerloop: for (; j <= columnsNumber; j++) {
                     if (isHorizontal) {
                         for (int k = 0; k < shipSize; k++) {
-                            if ((j + k) > 9 || !isCellAvailable(i, j + k))
+                            if ((j + k) > columnsNumber || !isCellAvailable(i, j + k))
                                 continue outerloop;
                         }
                         for (int k = 0; k < shipSize; k++) {
@@ -134,7 +144,7 @@
                         return;
                     } else {
                         for (int k = 0; k < shipSize; k++) {
-                            if ((i + k) > 9 || !isCellAvailable(i + k, j))
+                            if ((i + k) > rowsNumber || !isCellAvailable(i + k, j))
                                 continue outerloop;
                         }
                         for (int k = 0; k < shipSize; k++) {
@@ -158,11 +168,11 @@
         boolean isHorizontal = (1 + (int) (Math.random() * ((2 - 1) + 1))) == 1;
 
         while (true) {
-            for (int i = 0; i <= 9; i++) {
-                outerloop: for (int j = 0; j <= 9; j++) {
+            for (int i = 0; i <= rowsNumber; i++) {
+                outerloop: for (int j = 0; j <= columnsNumber; j++) {
                     if (isHorizontal) {
                         for (int k = 0; k < shipSize; k++) {
-                            if ((j + k) > 9 || !gameField[i][j + k].hasShip){
+                            if ((j + k) > columnsNumber || !gameField[i][j + k].hasShip){
                                 continue outerloop;
                             }
                         }
@@ -172,7 +182,7 @@
                         return;
                     } else {
                         for (int k = 0; k < shipSize; k++) {
-                            if ((i + k) > 9 || !gameField[i + k][j].hasShip)
+                            if ((i + k) > rowsNumber || !gameField[i + k][j].hasShip)
                                 continue outerloop;
                         }
                         for (int k = 0; k < shipSize; k++) {
@@ -188,15 +198,15 @@
 
     private void cleanField() {
 
-        for (int i = 0; i <= 9; i++) {
-            for (int j = 0; j <= 9; j++) {
+        for (int i = 0; i <= rowsNumber; i++) {
+            for (int j = 0; j <= columnsNumber; j++) {
                 gameField[i][j].cleanCell();
             }
         }
     }   
 
     public void printField() {
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < columnsNumber + 2; i++) {
             if(i == 0) {
                 System.out.print("  ");
                 continue;
@@ -205,7 +215,7 @@
         }
         System.out.print("\n");
 
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < columnsNumber + 2; i++) {
             if(i == 0) {
                 System.out.print("  ");
                 continue;
@@ -219,14 +229,14 @@
             for (int j = 0; j < columnsNumber; j++) {
                 System.out.print((j == 0 ? coordinateLetters[i] + "|" : "") + " " + gameField[i][j].getStatusSign());
 
-                if(j == 9) System.out.print("|");
+                if(j == columnsNumber) System.out.print("|");
             }
         
             System.out.println("\n");
         }
 
 
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < columnsNumber + 2; i++) {
             if(i == 0) {
                 System.out.print("  ");
                 continue;
