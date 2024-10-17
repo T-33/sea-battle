@@ -17,6 +17,10 @@
             isSunken = true;
         }
     }
+
+    public boolean isShipHit() {
+        return hasShip && isHit;
+    }
     public void cleanCell() {
         hasShip = false;
         isHit = false;
@@ -25,7 +29,11 @@
     public String getStatusSign() {
         String sign = "";
 
-        if(isHit && hasShip) {
+        if(isSunken) {
+
+            sign = "{x}";
+
+        } else if(isHit && hasShip) {
 
             sign = "--";
             
@@ -36,10 +44,6 @@
         } else if(hasShip) {
 
             sign = "XX";
-
-        } else if(isSunken) {
-
-            sign = "{x}";
 
         } else {
             sign = "[]";
