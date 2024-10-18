@@ -1,13 +1,20 @@
-﻿public class SeaBattle {
+﻿import java.util.Scanner;
+import java.util.ArrayList;
+
+public class SeaBattle {
 
     private int rowsNumber;
     private int columnsNumber;
 
-    private int[] shipsSizes;
-
     private Cell[][] gameField;
 
-    private Player[] scoreBoard;
+    private int[]shipsSizes;
+
+    private ArrayList<Player> playersList = new ArrayList<Player>();
+    private int currentPlayerIndex = 0;
+    private int totalHits = 0;
+
+    private int totalShots = 0;
 
     private static final String[] coordinateLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
@@ -36,12 +43,47 @@
     public void init(int[] shipsSizes) {
 
         this.shipsSizes = shipsSizes;
+        cleanField();
+
+        Scanner sc = new Scanner(System.in);
 
         cleanField();
 
         for (int i = 0; i < shipsSizes.length; i++) {
             placeShip(shipsSizes[i]);
         }
+
+        System.out.println("What is your name?");
+        String userName = sc.nextLine();
+        Player player = new Player(userName, 0);
+        playersList.add(player);
+        cleanScreen();
+        while(true) {
+        
+            if(totalHits == 20) {
+                endGame();
+                return;
+            } 
+            printField();
+
+            System.out.print("\n");
+            System.out.println("Please enter which field you want to hit (in following format: either  A 1 or 1 1):");
+            //TODO жесткий костыль  ------------->
+            String userX = "";
+            userX = sc.nextLine();
+            
+
+
+            cleanScreen();
+
+            hitCell(userX);
+            
+
+            cleanScreen();
+
+            // sc.close();
+        }
+        
     }
 
     public int getRowsNumber() {
@@ -52,6 +94,41 @@
         return columnsNumber;
     }
 
+    private void endGame() {
+
+        playersList.get(currentPlayerIndex).setHits(totalShots);
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Congratulations " + playersList.get(currentPlayerIndex).getName() + "! You succesfully destroyed all enemy ships and it took you " + totalShots + " shots.");
+        System.out.println("Would you like to repeat?");
+        System.out.println("1 - Yes");
+        System.out.println("0 - No");
+        
+        int userChoice = sc.nextInt();
+        totalShots = 0;
+        totalHits = 0;
+        currentPlayerIndex += 1;
+        if(userChoice == 0) {
+            cleanScreen();
+            printScoreBoard();
+        } else if(userChoice == 1) {
+            init(this.shipsSizes);
+        }
+        
+        
+    }
+
+    private void printScoreBoard() {
+        cleanScreen();
+        System.out.println("Name|TotalShots");
+        System.out.println("-----------------");
+        for(Player player : playersList) {
+            System.out.println("|" + player.getName() + "|" + player.getHits());
+        }
+        System.out.println("-----------------");
+    }
+
     public void hitCell(int i, int j) {
 
         if (i < 0 || i > rowsNumber || j < 0 || j > columnsNumber) {
@@ -60,12 +137,24 @@
         }
         gameField[i][j].hit();
 
+        totalShots += 1;
+
+        if(gameField[i][j].hasShip) totalHits += 1;
+        
+        if(totalHits == 20)  endGame();
+
         checkSunken(i, j);
     }
 
     public void hitCell(String cellCoordinates) {
 
         // TODO ==========REFACTOR=============
+
+        if(cellCoordinates.equals("win")) {
+            totalHits = 20;
+            // endGame();
+            return;
+        }
 
         String row = "", col = "";
         int rowInt = 0, colInt = 0;
@@ -272,7 +361,7 @@
         for (int i = 0; i < rowsNumber; i++) {
 
             for (int j = 0; j < columnsNumber; j++) {
-                System.out.print((j == 0 ? coordinateLetters[i] + "|" : "") + " " + gameField[i][j].getStatusSign());
+                System.out.print((j == 0 ? coordinateLetters[i] + "|" : "") + " " + gameField[i][j].getStatusSign() + ((j == columnsNumber - 1) ? "|" : ""));
 
                 if (j == columnsNumber)
                     System.out.print("|");
@@ -340,4 +429,9 @@
                                                                                                       // for inner cells
         }
     }
+
+    public static void cleanScreen() {
+        System.out.print("\033[H\033[2J");  
+        System.out.flush();  
+     }
 }
