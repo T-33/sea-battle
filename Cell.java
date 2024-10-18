@@ -21,6 +21,15 @@
     public boolean isShipHit() {
         return hasShip && isHit;
     }
+
+    public boolean isEmpty() {
+        return !isHit && !hasShip;
+    }
+
+    public boolean isMissed() {
+        return !isHit && hasShip;
+    }
+
     public void cleanCell() {
         hasShip = false;
         isHit = false;
@@ -31,19 +40,15 @@
 
         if(isSunken) {
 
-            sign = "{x}";
+            sign = "XX";
 
         } else if(isHit && hasShip) {
 
-            sign = "--";
+            sign = "++";
             
         } else if(isHit) {
 
             sign = "**";
-
-        } else if(hasShip) {
-
-            sign = "XX";
 
         } else {
             sign = "[]";

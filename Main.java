@@ -16,8 +16,9 @@ public class Main
         int[] shipsSize = new int[]{4, 3, 3, 2, 2, 2, 1, 1, 1, 1};
         gameField.init(shipsSize);
 
-        gameField.printField();
+        
         while(true) {
+            gameField.printField();
             System.out.print("\n");
             System.out.println("Please enter which field you want to hit (in following format: either  A 1 or 1 1):");
             String userX = sc.nextLine();
