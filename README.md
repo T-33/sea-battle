@@ -1,2 +1,4 @@
 # sea-battle
-sea-battle console game
+===================sea-battle console game===============================
+
+for **Dim** *Agai*

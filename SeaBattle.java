@@ -263,7 +263,7 @@ public class SeaBattle {
 
         // TODO rework useless isEmpty and isMissed replace wth isMissed
         // instead++++++++++++++++++++++++++++++++++++++++++++++++++++++
-        for (int k = 0; i + k < rowsNumber - 1; k++) {
+        for (int k = 0; i + k <= rowsNumber - 1; k++) {
 
             if (!gameField[i + k][j].hasShip)
                 break;
@@ -271,7 +271,7 @@ public class SeaBattle {
             if (!gameField[i + k][j].isShipHit())
                 return;
         }
-        for (int k = 0; i - k > 0; k++) {
+        for (int k = 0; i - k >= 0; k++) {
 
             if (!gameField[i - k][j].hasShip)
                 break;
@@ -279,7 +279,7 @@ public class SeaBattle {
             if (!gameField[i - k][j].isShipHit())
                 return;
         }
-        for (int k = 0; j + k < columnsNumber - 1; k++) {
+        for (int k = 0; j + k <= columnsNumber - 1; k++) {
 
             if (!gameField[i][j + k].hasShip)
                 break;
@@ -287,7 +287,7 @@ public class SeaBattle {
             if (!gameField[i][j + k].isShipHit())
                 return;
         }
-        for (int k = 0; j - k > 0; k++) {
+        for (int k = 0; j - k >= 0; k++) {
 
             if (!gameField[i][j - k].hasShip)
                 break;
@@ -296,7 +296,7 @@ public class SeaBattle {
                 return;
         }
 
-        for (int k = 0; i + k < rowsNumber - 1; k++) {
+        for (int k = 0; i + k <= rowsNumber - 1; k++) {
 
             if (!gameField[i + k][j].hasShip)
                 break;
@@ -304,7 +304,7 @@ public class SeaBattle {
             if (gameField[i + k][j].isShipHit())
                 gameField[i + k][j].sunk();
         }
-        for (int k = 0; i - k > 0; k++) {
+        for (int k = 0; i - k >= 0; k++) {
 
             if (!gameField[i - k][j].hasShip)
                 break;
@@ -312,7 +312,7 @@ public class SeaBattle {
             if (gameField[i - k][j].isShipHit())
                 gameField[i - k][j].sunk();
         }
-        for (int k = 0; j + k < columnsNumber - 1; k++) {
+        for (int k = 0; j + k <= columnsNumber - 1; k++) {
 
             if (!gameField[i][j + k].hasShip)
                 break;
@@ -320,7 +320,7 @@ public class SeaBattle {
             if (gameField[i][j + k].isShipHit())
                 gameField[i][j + k].sunk();
         }
-        for (int k = 0; j - k > 0; k++) {
+        for (int k = 0; j - k >= 0; k++) {
 
             if (!gameField[i][j - k].hasShip)
                 break;
