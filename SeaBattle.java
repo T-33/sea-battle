@@ -44,6 +44,8 @@ public class SeaBattle {
 
         this.shipsSizes = shipsSizes;
         cleanField();
+        totalHits = 0;
+        totalShots = 0;
 
         Scanner sc = new Scanner(System.in);
 
@@ -68,12 +70,9 @@ public class SeaBattle {
 
             System.out.print("\n");
             System.out.println("Please enter which field you want to hit (in following format: either  A 1 or 1 1):");
-            //TODO жесткий костыль  ------------->
             String userX = "";
-            userX = sc.nextLine();
+            if(totalHits != 20) userX = sc.nextLine();
             
-
-
             cleanScreen();
 
             hitCell(userX);
@@ -131,8 +130,27 @@ public class SeaBattle {
 
     public void hitCell(int i, int j) {
 
-        if (i < 0 || i > rowsNumber || j < 0 || j > columnsNumber) {
+        if (i < 0 || i >= rowsNumber || j < 0 || j >= columnsNumber) {
             System.out.println("Incorrect input, please try again");
+
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            return;
+        }
+        
+        if(gameField[i][j].isHit) {
+            System.out.println("You have already hit that cell");
+
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             return;
         }
         gameField[i][j].hit();
@@ -156,6 +174,18 @@ public class SeaBattle {
             return;
         }
 
+        if(cellCoordinates.length() < 2) {
+            System.out.println("Incorrect input, please try again");
+
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            return;
+        }
+
         String row = "", col = "";
         int rowInt = 0, colInt = 0;
 
@@ -163,12 +193,23 @@ public class SeaBattle {
 
         if (Character.isWhitespace(cellCoordinates.charAt(1))) { // check if cellCoord. has whitespace separating row
                                                                  // literal and col number
-
             col = cellCoordinates.substring(2);
 
         } else {
 
             col = cellCoordinates.substring(1);
+        }
+
+        if(!isNumeric(col)) {
+            System.out.println("Incorrect input, please try again");
+
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            return;
         }
 
         if (isNumeric(row)) {
